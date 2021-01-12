@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>棋牌游戏</title>
+    <style>
+        body{
+            width: 1920px;
+            height: 1080px;
+            display: flex;
+            justify-content: center;
+        }
+        #main{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        #md{
+            width: 105px;
+            height: 150px;
+            position: relative
+        }
+        #md img {
+            position: absolute;
+            left: 1330px;
+            top: 75px;
+            z-index: 100;
+        }
+        .c{
+            perspective: 800px;
+            transform-style: preserve-3d;
+            position: absolute;
+            width: 105px;
+            height: 150px;
+            left: 0;
+            top:0;
+            transition: all 2s;
+            /*z-index: 1;*/
+
+        }
+        .c1{
+            width: 105px;
+            height: 150px;
+            position: absolute;
+            z-index: 1;
+            border-radius: 20px;
+            left: 0;
+            top:0;
+        }
+        .c2{
+            width: 105px;
+            height: 150px;
+            position: absolute;
+            transform: rotateY(180deg);
+            border-radius: 20px;
+            left: 0;
+            top:0;
+        }
+        #aside{
+            width: 20%;
+            height: 100%;
+            float: left;
+        }
+        #section{
+            width: 80%;
+            height: 100%;
+            float: left;
+            position: relative;
+            background: url('img/bg-12.jpg')  center/cover no-repeat ;
+        }
+        #up{
+            position: relative;
+        }
+        @keyframes ani {
+            0%{transform: rotateY(0deg)}
+            50%{transform: rotateY(90deg)}
+            100%{transform: rotateY(180deg)}
+        }
+        @keyframes aaa {
+            100%{transform: translate3d(0px,0px,0px) rotateZ(0deg)}
+        }
+        @keyframes bbb1 {
+            50%{transform: translate3d(-900px,0px,0px) rotateY(180deg) scale3d(2,2,2)}
+            100%{transform: translate3d(0px,0px,0px) rotateY(180deg) scale3d(1,1,1)}
+        }
+        @keyframes bbb2 {
+            50%{transform: translate3d(-700px,0px,0px) rotateY(180deg) scale3d(2,2,2)}
+            100%{transform: translate3d(0px,0px,0px) rotateY(180deg) scale3d(1,1,1)}
+        }
+        @keyframes ccc1 {
+            100%{transform: translate3d(-130px,-300px,0px) rotate(360deg)}
+        }
+        @keyframes win1 {
+            0%{transform:  translate3d(800px,-800px,-800px) rotateY(0deg) scale3d(0,0,0)}
+            25%{transform: translate3d(600px,-600px,-600px) rotateY(90deg) scale3d(0.5,0.5,0.5)}
+            50%{transform: translate3d(400px,-400px,-400px) rotateY(180deg) scale3d(1,1,1)}
+            75%{transform: translate3d(200px,-200px,-200px) rotateY(270deg) scale3d(1.5,1.5,1.5)}
+            100%{transform: translate3d(0px,0px,0px) rotate(360deg) scale3d(2,2,2)}
+        }
+
+        #qq{
+            position: fixed;
+            left: 100px;
+            top:800px;
+            display: none;
+
+        }
+        #qqq{
+            display: none;
+            position: fixed;
+            left: 250px;
+            top:800px;
+
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <img src="img/bm1.png" alt="" width="50" height="60" id="qq">
+    <img src="img/bm2.png" alt=""  width="50" height="60" style="" id="qqq">
+    <div style="position: fixed;left: 150px;top: 700px;">
+        <img src="img/xz.png" alt="" width="100" height="100" id="xz">
+    </div>
+    <audio src="audio/yy.mp3" controls id="myAudio" style="display: none">
+    </audio>
+    <div style="position: absolute;left: 550px;top: 250px;z-index: 1;width: 800px;height: 300px;display: flex;align-items: center;justify-content:center ">
+        <p id="win" style="font-size: 100px;color: red"></p>
+    </div>
+    <div id="btn1" style="position: fixed;left: 150px;top: 100px;">
+        <img src="img/btn4.png" alt="" width="100" height="100">
+    </div>
+    <div id="btn2" style="position: fixed;left: 150px;top: 250px;">
+        <img src="img/btn-1.png" alt="" width="100" height="100">
+    </div>
+    <div id="btn3" style="position: fixed;left: 150px;top: 400px;">
+        <img src="img/yy1.png" alt="" width="100" height="100">
+    </div>
+    <div id="btn4" style="position: fixed;left: 150px;top: 550px;">
+        <img src="img/yy2.png" alt="" width="100" height="100">
+    </div>
+    <div style="width: 200px;height: 200px;position: absolute;left: 1700px;top: 50px;z-index: 1" id="box1">
+        <!-- <img src="img/d1.jpg" width="35" alt="">-->
+
+    </div>
+    <div style="width: 200px;height: 200px;position: absolute;left: 1700px;top: 600px;z-index: 1" id="box2" ></div>
+    <p style="color: black;font-size: 30px;position: absolute;left: 1550px;top: 10px;z-index: 1" id="j"></p>
+    <p style="color: black;font-size: 30px;position: absolute;left: 1550px;top: 560px;z-index: 1" id="y"></p>
+    <div id="aside">
+        <img src="img/bg-9.jpg" alt="" width="100%" height="100%">
+    </div>
+    <div id="section">
+        <div id="up" style="height: 25%"></div>
+        <div id="mid" style="height: 30%">
+            <div id="md">
+                <img src="img/bm1.jpg" alt="" width="105" height="150" id="mdimg">
+            </div>
+        </div>
+        <div id="down" style="height: 25%;">
+
+        </div>
+    </div>
+</div>
+<script>
+    var buttons=document.getElementsByTagName('button');
+    var j=document.getElementById('j');
+    var y=document.getElementById('y');
+    var o =document.getElementById('myAudio');
+    var win=document.getElementById('win');
+    var q=document.getElementById('q');
+    var qq=document.getElementById('qq');
+    var qqq=document.getElementById('qqq');
+    var xz=document.getElementById('xz');
+    var arr1=[];
+    var arr2=[];
+    var sum1=[];
+    var sum2=[];
+    var brr1=[];
+    var brr2=[];
+    var brr3=[];
+    var brr4=[];
+    var score1=0;
+    var score2=0;
+    var change=true;
+    function getImg(name,arr) {
+        var _this=this;
+        this.img='';
+        this.name=name;
+        this.arr=arr;
+        this.pass=function () {
+            for(var i=1;i<=15;i++) {
+                _this.obj={};
+                _this.img='img/'+_this.name+i+'.jpg';
+                _this.obj.name=_this.name;
+                _this.obj.img=_this.img;
+                _this.obj.size=i;
+                _this.obj.flag='false';
+                _this.arr.push(_this.obj);
+            }
+            console.log(1);
+        }
+    }
+    var a=new getImg('h',brr1);
+    var b=new getImg('ht',brr2);
+    var c=new getImg('m',brr3);
+    var d=new getImg('f',brr4);
+    console.log(a.pass());
+    console.log(b.pass());
+    console.log(c.pass());
+    console.log(d.pass());
+    arr1=brr1;
+    arr2=brr2;
+    for(var i=0;i<arr1.length;i++) {
+        arr1[i].bmimg='img/bm1.png'
+    }
+    for(var ii=0;ii<arr2.length;ii++) {
+        arr2[ii].bmimg='img/bm1.png'
+    }
+    xz.onclick=function () {
+        qq.style.display='block';
+        qqq.style.display='block';
+    };
+    qq.onclick=function () {
+        var card=document.getElementsByClassName('c');
+        var up=document.getElementById('up');
+        var down=document.getElementById('down');
+        var t1=up.getElementsByClassName('c');
+        var t2=down.getElementsByClassName('c');
+        arr1=brr1;
+        arr2=brr2;
+        for(var j=0;j<t1.length;j++) {
+            t1[j].children[0].children[0].src='img/bm1.png';
+            t2[j].children[0].children[0].src='img/bm1.png';
+        }
+        qq.style.display='none';
+        qqq.style.display='none';
+        mdimg.src='img/bm1.png';
+        console.log(2333);
+        console.log(arr1);
+        console.log(arr2);
+    };
+    qqq.onclick=function () {
+        var card=document.getElementsByClassName('c');
+        var up=document.getElementById('up');
+        var down=document.getElementById('down');
+        var t1=up.getElementsByClassName('c');
+        var t2=down.getElementsByClassName('c');
+        arr1=brr3;
+        arr2=brr4;
+        for(var j=0;j<t1.length;j++) {
+            t1[j].children[0].children[0].src='img/bm2.png';
+            t2[j].children[0].children[0].src='img/bm2.png';
+        }
+
+        mdimg.src='img/bm2.png';
+        qqq.style.display='none';
+        qq.style.display='none';
+        console.log(235252);
+        console.log(arr1);
+        console.log(arr2);
+    };
+    console.log(2);
+    console.log(arr1);
+    console.log(arr2);
+    console.log(3);
+    j.innerHTML='庄家：'+ score1;
+    y.innerHTML='闲家：'+ score2;
+
+    function createDom1(arr1) {
+        var t=document.getElementById('up');
+        var s=30;
+        var index1=[];
+        for(var i=1;i<=7;i++) {
+            for(var n=0;n<arr1.length;n++) {
+                var index = Math.floor(Math.random() * arr1.length);
+                if (index1.indexOf(index) != -1) {
+                    continue
+                } else {
+                    break
+                }
+            }
+            index1.push(index);
+            sum1.push(arr1[index]);
+            var card=document.createElement('div');
+            var card1=document.createElement('div');
+            var card2=document.createElement('div');
+            var img1=document.createElement('img');
+            var img2=document.createElement('img');
+            card.className='c';
+            card.setAttribute('onclick','reverse(this)');
+            card1.className='c1';
+            card2.className='c2';
+            img1.src=arr1[index].bmimg;
+            img1.style.width=105+'px';
+            img1.style.height=150+'px';
+            img2.src=arr1[index].img;
+            card.style.top=345+'px';
+            card.style.left=1330+'px';
+            card1.appendChild(img1);
+            card2.appendChild(img2);
+            card.appendChild(card1);
+            card.appendChild(card2);
+            t.appendChild(card);
+            s+=170;
+        }
+    }
+
+    function createDom2(arr2) {
+        var t=document.getElementById('down');
+        var s=30;
+        var index1=[];
+        for(var i=1;i<=7;i++) {
+            for(var n=0;n<arr2.length;n++) {
+                var index = Math.floor(Math.random() * arr2.length);
+                if (index1.indexOf(index) != -1) {
+                    continue
+                } else {
+                    break
+                }
+            }
+            index1.push(index);
+            sum2.push(arr2[index]);
+            var card=document.createElement('div');
+            var card1=document.createElement('div');
+            var card2=document.createElement('div');
+            var img1=document.createElement('img');
+            var img2=document.createElement('img');
+            card.className='c';
+            card.setAttribute('onclick','reverse(this)');
+            card1.className='c1';
+            card2.className='c2';
+            img1.src=arr2[index].bmimg;
+            img1.style.width=105+'px';
+            img1.style.height=150+'px';
+            img2.src=arr2[index].img;
+            card.style.top=345+'px';
+            card.style.left=1330+'px';
+            card1.appendChild(img1);
+            card2.appendChild(img2);
+            card.appendChild(card1);
+            card.appendChild(card2);
+            t.appendChild(card);
+            s+=170;
+        }
+
+    }
+    console.log(arr2);
+    console.log(11111);
+    console.log(arr1);
+    console.log(arr2);
+    //算法
+    Array.prototype.shuffle=function () {
+        var card=document.getElementsByClassName('c');
+        var up=document.getElementById('up');
+        var down=document.getElementById('down');
+        var t1=up.getElementsByClassName('c');
+        var t2=down.getElementsByClassName('c');
+        if(this[0].name=='h') {
+            var index3=[];
+            for(var i=0;i<this.length;i++) {
+                for(var ii=1;ii<=13;ii++) {
+                    var index1=Math.floor(Math.random()*arr1.length);
+                    if (index3.indexOf(index1) != -1) {
+                        continue
+                    } else {
+                        break
+                    }
+                }
+                index3.push(index1);
+                console.log(arr1);
+                this[i]=arr1[index1];
+                t1[i].children[1].children[0].src=arr1[index1].img;
+                console.log(this);
+                console.log(2);
+                console.log(arr1[index1]);
+                console.log(t1[i].children[0].children[0]);
+            }
+        }else {
+            var index33=[];
+            for(var j=0;j<this.length;j++) {
+                for(var jj=1;jj<=13;jj++) {
+                    var index2=Math.floor(Math.random()*arr2.length);
+                    if (index33.indexOf(index2) != -1) {
+                        continue
+                    } else {
+                        break
+                    }
+                }
+                index33.push(index2);
+                this[j]=arr2[index2];
+                t2[j].children[1].children[0].src=arr2[index2].img;
+            }
+        }
+
+
+
+    };
+    /*发牌1*/
+    function getCards1() {
+        var up = document.getElementById('up');
+        var card=up.getElementsByClassName('c');
+        for(var i=0;i<card.length;i++) {
+            if((i%7)==0) {
+                card[i].style.transform='translate3d(-1300px,-300px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==1) {
+                card[i].style.transform='translate3d(-1130px,-300px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==2) {
+                card[i].style.transform='translate3d(-960px,-300px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==3) {
+                card[i].style.transform='translate3d(-790px,-300px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==4) {
+                card[i].style.transform='translate3d(-620px,-300px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==5) {
+                card[i].style.transform='translate3d(-450px,-300px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==6) {
+                card[i].style.transform='translate3d(-280px,-300px,0px) rotateZ(-360deg)';
+            }
+        }
+    }
+
+    /*发牌2*/
+    function getCards2() {
+        var down=document.getElementById('down');
+        var card=down.getElementsByClassName('c');
+        for(var i=0;i<card.length;i++) {
+            if((i%7)==0) {
+                card[i].style.transform='translate3d(-1300px,270px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==1) {
+                card[i].style.transform='translate3d(-1130px,270px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==2) {
+                card[i].style.transform='translate3d(-960px,270px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==3) {
+                card[i].style.transform='translate3d(-790px,270px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==4) {
+                card[i].style.transform='translate3d(-620px,270px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==5) {
+                card[i].style.transform='translate3d(-450px,270px,0px) rotateZ(-360deg)';
+            }
+            else if((i%7)==6) {
+                card[i].style.transform='translate3d(-280px,270px,0px) rotateZ(-360deg)';
+            }
+        }
+
+    }
+
+    //发牌
+    function getCards() {
+        var card=document.getElementsByClassName('c');
+        var up=document.getElementById('up');
+        var down=document.getElementById('down');
+        var t1=up.getElementsByClassName('c');
+        var t2=down.getElementsByClassName('c');
+        var win=document.getElementById('win');
+        var img1=box1.getElementsByTagName('img');
+        var img2=box2.getElementsByTagName('img');
+        for(var n1=img1.length-1;n1>=0;n1--) {
+            box1.removeChild(img1[n1]);
+        }
+        for(var n2=img2.length-1;n2>=0;n2--) {
+            box2.removeChild(img2[n2]);
+        }
+        win.innerHTML='';
+        sum1.shuffle();
+        sum2.shuffle();
+        console.log(sum1);
+        console.log(sum2);
+        for(var h=0;h<sum1.length;h++) {
+            sum1[h].flag='false';
+            sum2[h].flag='false';
+        }
+        getCards1();
+        getCards2();
+        score1=0;
+        score2=0;
+        j.innerHTML='庄家：'+ score1;
+        y.innerHTML='闲家：'+ score1;
+        for(var i=0;i<card.length;i++) {
+            card[i].setAttribute('onclick','reverse(this)');
+        }
+    }
+
+    createDom1(arr1);
+    createDom2(arr2);
+
+    //发牌
+    btn1.onclick=function () {
+        getCards();
+    };
+    //洗牌
+    btn2.onclick=function () {
+        getCard();
+    };
+    btn3.onclick=function () {
+        o.play();
+    };
+    btn4.onclick=function () {
+        o.pause();
+    };
+    //洗牌
+    function getCard() {
+        change=true;
+        var win=document.getElementById('win');
+        reverseIndex1=0;
+        reverseIndex2=0;
+        if(score1>score2){
+            /*win.style.animation='win1 2s forwards';*/
+            win.innerHTML='专家赢了'
+        }else if (score1<score2){
+            win.innerHTML='闲家赢了'
+        }else if(score1=score2) {
+            win.innerHTML='平局'
+        }
+
+        var card=document.getElementsByClassName('c');
+        for(var i=0;i<card.length;i++) {
+            card[i].style.transform='translate3d(0px,0px,0px) rotate(0deg)';
+        }
+
+    }
+    var reverseIndex1=0;
+    var reverseIndex2=0;
+    var xw=true;
+    var dw=true;
+    function reverse(_this) {
+        var win=document.getElementById('win');
+        var card=document.getElementsByClassName('c');
+        var up=document.getElementById('up');
+        var down=document.getElementById('down');
+        var t1=up.getElementsByClassName('c');
+        var t2=down.getElementsByClassName('c');
+        var j=document.getElementById('j');
+        var y=document.getElementById('y');
+        win.innerHTML='';
+
+        for (var i=0;i<card.length;i++) {
+            if(_this==card[i]){
+                for(var a=0;a<sum1.length;a++){
+                    if(_this.parentNode.id=='up') {
+                        for(var n=0;n<sum1.length;n++) {
+                            if (change==true){
+                                _this.style.transition = 'all 2s ';
+                                _this.style.transform = 'translate3d('+(-1200+80*reverseIndex1)+'px,-100px,0px)  rotateY(180deg) scale3d(0.7,0.7,0.7)';
+                                reverseIndex1++;
+                                change=false;
+                                if(i<7){
+                                    sum1[i].flag='true';
+                                }
+                            }
+                        }
+                    }
+
+                    if(_this.parentNode.id=='down') {
+                        for(var n2=0;n2<sum1.length;n2++) {
+                            if (change==false){
+                                _this.style.transition = 'all 2s ';
+                                _this.style.transform = 'translate3d('+(-1280+80*reverseIndex1)+'px,100px,0px)  rotateY(180deg) scale3d(0.7,0.7,0.7)';
+                                reverseIndex2++;
+                                change=true;
+                                if(i>=7) {
+                                    sum2[i-7].flag='true';
+                                }
+                            }
+                        }
+                    }
+                }
+                console.log(sum1);
+                for(var s= 0;s<sum1.length;s++) {
+                    if((sum1[s].size=='14')&&(sum1[s].flag=='true')){
+                        if(xw==true) {
+                            for(var z=0;z<2;z++){
+                                var img11=document.createElement('img');
+                                img11.src='img/d1.jpg';
+                                img11.width='35';
+                                img11.height='50';
+                                score1++;
+                                box1.appendChild(img11);
+                                j.innerHTML='庄家：'+ score1;
+                            }
+                        }
+                        xw=!xw;
+                    }
+                    if((sum1[s].size=='15')&&(sum1[s].flag=='true')){
+                        if(dw==true) {
+                            for(var zz=0;zz<3;zz++){
+                                var img111=document.createElement('img');
+                                img111.src='img/d1.jpg';
+                                img111.width='35';
+                                img111.height='50';
+                                score1++;
+                                box1.appendChild(img111);
+                                j.innerHTML='庄家：'+ score1;
+                            }
+                        }
+                        dw=!dw;
+                    }
+                    for(var ss=0;ss<sum2.length;ss++) {
+                        if((sum1[s].flag=='true')&&(sum2[ss].flag=='true')) {
+                            if(sum1[s].size>sum2[ss].size){
+                                score1+=1;
+                                var img1=document.createElement('img');
+                                img1.src='img/d1.jpg';
+                                img1.width='35';
+                                img1.height='50';
+                                box1.appendChild(img1);
+                                j.innerHTML='庄家：'+ score1;
+                            }else if(sum1[s].size<sum2[ss].size){
+                                var img2=document.createElement('img');
+                                img2.src='img/d2.jpg';
+                                img2.width='35';
+                                img2.height='50';
+                                box2.appendChild(img2);
+                                score2+=1;
+                                y.innerHTML='闲家：'+ score2;
+                            }else if(sum1[s].size==sum2[ss].size){
+                                score1+=1;
+                                score2+=1;
+                                var img3=document.createElement('img');
+                                var img4=document.createElement('img');
+                                img3.src='img/d1.jpg';
+                                img4.src='img/d2.jpg';
+                                img3.width='35';
+                                img3.height='50';
+                                img4.width='35';
+                                img4.height='50';
+                                box1.appendChild(img3);
+                                box2.appendChild(img4);
+                                j.innerHTML='庄家：'+ score1;
+                                y.innerHTML='闲家：'+ score2;
+                            }
+                            if((sum2[ss].size=='14')){
+                                for(var z2=0;z2<2;z2++){
+                                    var img22=document.createElement('img');
+                                    img22.src='img/d2.jpg';
+                                    img22.width='35';
+                                    img22.height='50';
+                                    score2++;
+                                    box2.appendChild(img22);
+                                    y.innerHTML='闲家：'+ score2;
+                                }
+                            }
+                            if((sum2[ss].size=='15')){
+                                for(var z22=0;z22<3;z22++){
+                                    var img222=document.createElement('img');
+                                    img222.src='img/d2.jpg';
+                                    img222.width='35';
+                                    img222.height='50';
+                                    score2++;
+                                    box2.appendChild(img222);
+                                    y.innerHTML='闲家：'+ score2;
+                                }
+                            }
+                            sum1[s].flag='false';
+                            sum2[ss].flag='false';
+                        }
+
+                    }
+                }
+                break;
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
